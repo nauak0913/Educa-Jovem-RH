@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducaJovem - Conectando Talentos e Empresas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --preto: #121212;
+            --branco: #ffffff;
+            --cinza-claro: #f5f5f5;
+            --cinza-medio: #e0e0e0;
+            --cinza-escuro: #424242;
+            --verde-escuro: #1b5e20;
+            --verde-claro: #4caf50;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--cinza-claro);
+            color: var(--preto);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Tela de seleção inicial */
+        .tela-inicial {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--preto) 100%);
+            color: var(--branco);
+            text-align: center;
+        }
+
+        .tela-inicial h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tela-inicial p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .botoes-iniciais {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .botao-grande {
+            background-color: var(--branco);
+            color: var(--verde-escuro);
+            border: none;
+            border-radius: 12px;
+            padding: 1.5rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra);
+            min-width: 220px;
+        }
+
+        .botao-grande:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: var(--verde-claro);
+            color: var(--branco);
+        }
+
+        /* Header e Menu */
+        header {
+            background-color: var(--preto);
+            color: var(--branco);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--branco);
+        }
+
+        .logo span {
+            color: var(--verde-claro);
+        }
+
+        .botao-menu {
+            background: none;
+            border: none;
+            color: var(--branco);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .botao-menu:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Menu lateral */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            height: 100vh;
+            background-color: var(--preto);
+            color: var(--branco);
+            transition: right 0.4s ease;
+            z-index: 200;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0;
+        }
+
+        .menu-lateral.aberto {
+            right: 0;
+        }
+
+        .menu-header {
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--cinza-escuro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .fechar-menu {
+            background: none;
+            border: none;
+            color: var(--branco);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .menu-opcoes {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .opcao-menu {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--branco);
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+        }
+
+        .opcao-menu:hover, .opcao-menu.ativo {
+            background-color: var(--verde-escuro);
+        }
+
+        .submenu {
+            display: none;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .submenu.aberto {
+            display: block;
+        }
+
+        .submenu .opcao-menu {
+            font-size: 0.9rem;
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Conteúdo principal */
+        .conteudo-principal {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .secao {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .secao.ativa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--verde-escuro);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--verde-claro);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--cinza-escuro);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards de funcionalidades */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background-color: var(--branco);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--verde-escuro);
+            margin-bottom: 1rem;
+        }
+
+        .card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--preto);
+        }
+
+        /* Busca e contratação */
+        .barra-pesquisa {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .barra-pesquisa input, .barra-pesquisa select {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--cinza-medio);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .botao-pesquisar {
+            background-color: var(--verde-escuro);
+            color: var(--branco);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .botao-pesquisar:hover {
+            background-color: var(--verde-claro);
+        }
+
+        .grid-candidatos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .candidato {
+            background-color: var(--branco);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease;
+        }
+
+        .candidato:hover {
+            transform: translateY(-5px);
+        }
+
+        .candidato-header {
+            background-color: var(--verde-escuro);
+            color: var(--branco);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .candidato-body {
+            padding: 1.5rem;
+        }
+
+        .candidato-info {
+            margin-bottom: 1rem;
+        }
+
+        .candidato-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .candidato-info i {
+            margin-right: 0.5rem;
+            color: var(--verde-escuro);
+        }
+
+        .candidato-acoes {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .botao-contato, .botao-contratar {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .botao-contato {
+            background-color: var(--cinza-medio);
+            color: var(--preto);
+        }
+
+        .botao-contato:hover {
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+        }
+
+        .botao-contratar {
+            background-color: var(--verde-escuro);
+            color: var(--branco);
+        }
+
+        .botao-contratar:hover {
+            background-color: var(--verde-claro);
+        }
+
+        /* EJ RHAI */
+        .ej-rhai-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .botoes-ej-rhai {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .botao-ej-rhai {
+            background-color: var(--verde-escuro);
+            color: var(--branco);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .botao-ej-rhai:hover, .botao-ej-rhai.ativo {
+            background-color: var(--verde-claro);
+        }
+
+        .painel-ai {
+            background-color: var(--branco);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            margin-top: 2rem;
+        }
+
+        .painel-ai h3 {
+            color: var(--verde-escuro);
+            margin-top: 0;
+        }
+
+        .analise-dados {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .grafico {
+            background-color: var(--cinza-claro);
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+
+        .barra {
+            flex: 1;
+            background-color: var(--verde-escuro);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+
+        .barra span {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--cinza-escuro);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .tela-inicial h1 {
+                font-size: 2.5rem;
+            }
+            
+            .botoes-iniciais {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .botao-grande {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .menu-lateral {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .conteudo-principal {
+                padding: 1rem;
+            }
+            
+            .barra-pesquisa {
+                flex-direction: column;
+            }
+            
+            .ej-rhai-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .botoes-ej-rhai {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Seleção Inicial -->
+    <div id="telaInicial" class="tela-inicial">
+        <h1>EducaJovem</h1>
+        <p>Conectando talentos promissores com empresas inovadoras</p>
+        <div class="botoes-iniciais">
+            <button class="botao-grande" onclick="irParaEmpresa()">
+                <i class="fas fa-building"></i> Área da Empresa
+            </button>
+            <button class="botao-grande" onclick="irParaAluno()">
+                <i class="fas fa-user-graduate"></i> Área do Aluno
+            </button>
+        </div>
+    </div>
+
+    <!-- Interface Principal (oculta inicialmente) -->
+    <div id="interfacePrincipal" class="container" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="logo">Educa<span>Jovem</span></div>
+            <button class="botao-menu" id="botaoMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <!-- Menu Lateral -->
+        <div class="menu-lateral" id="menuLateral">
+            <div class="menu-header">
+                <h2>Menu</h2>
+                <button class="fechar-menu" id="fecharMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="menu-opcoes">
+                <button class="opcao-menu ativo" data-secao="inicio">
+                    <i class="fas fa-home"></i> Início
+                </button>
+                <button class="opcao-menu" data-secao="busca-contratacao">
+                    <i class="fas fa-search"></i> Busca e Contratação
+                </button>
+                <button class="opcao-menu" id="botaoEjRhai">
+                    <i class="fas fa-robot"></i> EJ RHAI
+                </button>
+                <div class="submenu" id="submenuEjRhai">
+                    <button class="opcao-menu" data-secao="rh-contratacao">
+                        <i class="fas fa-user-plus"></i> RH de Contratação
+                    </button>
+                    <button class="opcao-menu" data-secao="analista-funcionarios">
+                        <i class="fas fa-chart-line"></i> Analista de Funcionários
+                    </button>
+                    <button class="opcao-menu" data-secao="analista-dados">
+                        <i class="fas fa-calculator"></i> Analista de Dados
+                    </button>
+                </div>
+                <button class="opcao-menu" data-secao="sobre">
+                    <i class="fas fa-info-circle"></i> Sobre Nós
+                </button>
+                <button class="opcao-menu" data-secao="contato">
+                    <i class="fas fa-envelope"></i> Contato
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="conteudo-principal">
+            <!-- Seção Início -->
+            <section id="inicio" class="secao ativa">
+                <h2>Bem-vindo à EducaJovem</h2>
+                <p>A EducaJovem é uma plataforma inovadora que conecta empresas a talentos jovens promissores, facilitando o processo de recrutamento e desenvolvimento de carreiras.</p>
+                
+                <h3>Nossas Funcionalidades</h3>
+                <div class="cards">
+                    <div class="card">
+                        <i class="fas fa-search"></i>
+                        <h4>Busca e Contratação</h4>
+                        <p>Encontre os melhores talentos com nosso sistema avançado de busca e filtros.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-robot"></i>
+                        <h4>EJ RHAI</h4>
+                        <p>Recrutamento assistido por IA para encontrar os candidatos ideais para sua empresa.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h4>Análise de Desempenho</h4>
+                        <p>Acompanhe o desenvolvimento dos funcionários com relatórios detalhados.</p>
+                    </div>
+                </div>
+
+                <h3>Nossos Valores</h3>
+                <div class="cards">
+                    <div class="card">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Transparência</h4>
+                        <p>Acreditamos em processos claros e abertos para empresas e candidatos.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-rocket"></i>
+                        <h4>Inovação</h4>
+                        <p>Utilizamos tecnologia de ponta para revolucionar o recrutamento.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-users"></i>
+                        <h4>Colaboração</h4>
+                        <p>Promovemos parcerias duradouras entre empresas e talentos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Busca e Contratação -->
+            <section id="busca-contratacao" class="secao">
+                <h2>Busca e Contratação</h2>
+                <p>Encontre os talentos ideais para sua empresa utilizando nossos filtros avançados.</p>
+                
+                <div class="barra-pesquisa">
+                    <input type="text" placeholder="Nome, habilidades ou especializações">
+                    <select>
+                        <option value="">Todas as áreas</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="administracao">Administração</option>
+                        <option value="design">Design</option>
+                    </select>
+                    <select>
+                        <option value="">Todas as idades</option>
+                        <option value="18-22">18-22 anos</option>
+                        <option value="23-27">23-27 anos</option>
+                        <option value="28+">28+ anos</option>
+                    </select>
+                    <input type="text" placeholder="Cidade">
+                    <button class="botao-pesquisar">Pesquisar</button>
+                </div>
+
+                <h3>Candidatos Disponíveis</h3>
+                <div class="grid-candidatos">
+                    <!-- Candidato 1 -->
+                    <div class="candidato">
+                        <div class="candidato-header">
+                            <h4>Ana Silva</h4>
+                            <p>Desenvolvedora Full Stack</p>
+                        </div>
+                        <div class="candidato-body">
+                            <div class="candidato-info">
+                                <p><i class="fas fa-birthday-cake"></i> 22 anos</p>
+                                <p><i class="fas fa-map-marker-alt"></i> São Paulo, SP</p>
+                                <p><i class="fas fa-graduation-cap"></i> Ciência da Computação - USP</p>
+                                <p><i class="fas fa-star"></i> JavaScript, React, Node.js, Python</p>
+                            </div>
+                            <div class="candidato-acoes">
+                                <button class="botao-contato">Entrar em Contato</button>
+                                <button class="botao-contratar">Contratar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidato 2 -->
+                    <div class="candidato">
+                        <div class="candidato-header">
+                            <h4>Carlos Oliveira</h4>
+                            <p>Analista de Marketing Digital</p>
+                        </div>
+                        <div class="candidato-body">
+                            <div class="candidato-info">
+                                <p><i class="fas fa-birthday-cake"></i> 24 anos</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Rio de Janeiro, RJ</p>
+                                <p><i class="fas fa-graduation-cap"></i> Publicidade - PUC-Rio</p>
+                                <p><i class="fas fa-star"></i> SEO, Google Ads, Mídias Sociais, Analytics</p>
+                            </div>
+                            <div class="candidato-acoes">
+                                <button class="botao-contato">Entrar em Contato</button>
+                                <button class="botao-contratar">Contratar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidato 3 -->
+                    <div class="candidato">
+                        <div class="candidato-header">
+                            <h4>Mariana Costa</h4>
+                            <p>Designer UX/UI</p>
+                        </div>
+                        <div class="candidato-body">
+                            <div class="candidato-info">
+                                <p><i class="fas fa-birthday-cake"></i> 21 anos</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Belo Horizonte, MG</p>
+                                <p><i class="fas fa-graduation-cap"></i> Design Gráfico - UFMG</p>
+                                <p><i class="fas fa-star"></i> Figma, Adobe XD, Research, Prototipagem</p>
+                            </div>
+                            <div class="candidato-acoes">
+                                <button class="botao-contato">Entrar em Contato</button>
+                                <button class="botao-contratar">Contratar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção EJ RHAI -->
+            <section id="ej-rhai" class="secao">
+                <div class="ej-rhai-header">
+                    <h2>EJ RHAI - Recrutamento Inteligente</h2>
+                    <div class="botoes-ej-rhai">
+                        <button class="botao-ej-rhai ativo" data-painel="rh-contratacao">RH de Contratação</button>
+                        <button class="botao-ej-rhai" data-painel="analista-funcionarios">Analista de Funcionários</button>
+                        <button class="botao-ej-rhai" data-painel="analista-dados">Analista de Dados</button>
+                    </div>
+                </div>
+
+                <div class="painel-ai" id="painel-rh-contratacao">
+                    <h3>RH de Contratação Semiautomático</h3>
+                    <p>Nosso agente de IA analisará seus requisitos e encontrará os 5 melhores candidatos para a vaga.</p>
+                    
+                    <div class="barra-pesquisa">
+                        <input type="text" placeholder="Descreva o perfil do candidato desejado">
+                        <button class="botao-pesquisar">Buscar Candidatos</button>
+                    </div>
+
+                    <h4>Melhores correspondências:</h4>
+                    <div class="grid-candidatos">
+                        <!-- Candidato IA 1 -->
+                        <div class="candidato">
+                            <div class="candidato-header">
+                                <h4>João Mendes</h4>
+                                <p>92% de compatibilidade</p>
+                            </div>
+                            <div class="candidato-body">
+                                <div class="candidato-info">
+                                    <p><i class="fas fa-birthday-cake"></i> 23 anos</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Curitiba, PR</p>
+                                    <p><i class="fas fa-graduation-cap"></i> Engenharia de Software - UTFPR</p>
+                                    <p><i class="fas fa-star"></i> Python, Django, Flask, PostgreSQL</p>
+                                </div>
+                                <div class="candidato-acoes">
+                                    <button class="botao-contratar">Contratar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Candidato IA 2 -->
+                        <div class="candidato">
+                            <div class="candidato-header">
+                                <h4>Fernanda Lima</h4>
+                                <p>88% de compatibilidade</p>
+                            </div>
+                            <div class="candidato-body">
+                                <div class="candidato-info">
+                                    <p><i class="fas fa-birthday-cake"></i> 25 anos</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Porto Alegre, RS</p>
+                                    <p><i class="fas fa-graduation-cap"></i> Sistemas de Informação - UFRGS</p>
+                                    <p><i class="fas fa-star"></i> Java, Spring Boot, MySQL, AWS</p>
+                                </div>
+                                <div class="candidato-acoes">
+                                    <button class="botao-contratar">Contratar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="painel-ai" id="painel-analista-funcionarios" style="display: none;">
+                    <h3>Analista de Funcionários</h3>
+                    <p>Análise detalhada do desempenho dos funcionários com base em hard skills e soft skills.</p>
+                    
+                    <h4>Desempenho Geral da Empresa</h4>
+                    <div class="grafico">
+                        <div class="barra" style="height: 80%;">
+                            <span>Hard Skills</span>
+                        </div>
+                        <div class="barra" style="height: 65%;">
+                            <span>Soft Skills</span>
+                        </div>
+                        <div class="barra" style="height: 75%;">
+                            <span>Produtividade</span>
+                        </div>
+                        <div class="barra" style="height: 70%;">
+                            <span>Inovação</span>
+                        </div>
+                    </div>
+
+                    <h4>Relatório de Desenvolvimento</h4>
+                    <div class="analise-dados">
+                        <div class="card">
+                            <h5>Progresso nos Últimos 6 Meses</h5>
+                            <p>Os funcionários mostraram um crescimento médio de 15% em habilidades técnicas.</p>
+                        </div>
+                        <div class="card">
+                            <h5>Áreas de Melhoria</h5>
+                            <p>Recomendamos treinamento em comunicação e trabalho em equipe para 30% da equipe.</p>
+                        </div>
+                        <div class="card">
+                            <h5>Funcionários em Destaque</h5>
+                            <p>5 funcionários apresentaram crescimento excepcional acima de 25%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="painel-ai" id="painel-analista-dados" style="display: none;">
+                    <h3>Analista de Dados e Calculadora</h3>
+                    <p>Análise avançada de dados e cálculos personalizados para sua empresa.</p>
+                    
+                    <div class="barra-pesquisa">
+                        <input type="text" placeholder="Digite sua consulta ou cálculo">
+                        <button class="botao-pesquisar">Analisar</button>
+                    </div>
+
+                    <h4>Análises Recentes</h4>
+                    <div class="analise-dados">
+                        <div class="card">
+                            <h5>Custo-Benefício de Novas Contratações</h5>
+                            <p>ROI estimado: 187% no primeiro ano para desenvolvedores júnior.</p>
+                        </div>
+                        <div class="card">
+                            <h5>Projeção de Crescimento</h5>
+                            <p>Com a equipe atual, expectativa de crescimento de 22% no próximo trimestre.</p>
+                        </div>
+                        <div class="card">
+                            <h5>Análise de Mercado</h5>
+                            <p>Demanda por profissionais de TI aumentou 18% no último semestre.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Sobre -->
+            <section id="sobre" class="secao">
+                <h2>Sobre a EducaJovem</h2>
+                <p>A EducaJovem nasceu da necessidade de conectar jovens talentos a oportunidades reais no mercado de trabalho. Nossa missão é reduzir a lacuna entre a educação formal e as demandas do mercado.</p>
+                
+                <h3>Nossa História</h3>
+                <p>Fundada em 2020, a EducaJovem já conectou mais de 5.000 jovens a oportunidades de emprego em empresas de todos os tamanhos. Começamos como um projeto universitário e hoje somos referência no recrutamento de jovens talentos.</p>
+                
+                <h3>Nossa Equipe</h3>
+                <div class="cards">
+                    <div class="card">
+                        <i class="fas fa-user-tie"></i>
+                        <h4>Especialistas em RH</h4>
+                        <p>Profissionais com mais de 15 anos de experiência em recrutamento e seleção.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Desenvolvedores</h4>
+                        <p>Equipe técnica especializada em criar soluções inovadoras para recrutamento.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Analistas de Dados</h4>
+                        <p>Especialistas em análise de dados para otimizar nossos processos de matching.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Contato -->
+            <section id="contato" class="secao">
+                <h2>Entre em Contato</h2>
+                <p>Tem alguma dúvida ou sugestão? Entre em contato conosco!</p>
+                
+                <div class="cards">
+                    <div class="card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>E-mail</h4>
+                        <p>contato@educajovem.com.br</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-phone"></i>
+                        <h4>Telefone</h4>
+                        <p>(11) 3456-7890</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Endereço</h4>
+                        <p>Av. Paulista, 1000 - São Paulo, SP</p>
+                    </div>
+                </div>
+
+                <h3>Envie uma Mensagem</h3>
+                <div class="barra-pesquisa">
+                    <input type="text" placeholder="Seu nome">
+                    <input type="email" placeholder="Seu e-mail">
+                    <textarea placeholder="Sua mensagem" rows="4" style="width: 100%; padding: 0.8rem; border: 1px solid var(--cinza-medio); border-radius: 8px; font-size: 1rem;"></textarea>
+                    <button class="botao-pesquisar">Enviar Mensagem</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Elementos do DOM
+        const telaInicial = document.getElementById('telaInicial');
+        const interfacePrincipal = document.getElementById('interfacePrincipal');
+        const botaoMenu = document.getElementById('botaoMenu');
+        const menuLateral = document.getElementById('menuLateral');
+        const fecharMenu = document.getElementById('fecharMenu');
+        const opcoesMenu = document.querySelectorAll('.opcao-menu');
+        const secoes = document.querySelectorAll('.secao');
+        const botaoEjRhai = document.getElementById('botaoEjRhai');
+        const submenuEjRhai = document.getElementById('submenuEjRhai');
+        const botoesEjRhai = document.querySelectorAll('.botao-ej-rhai');
+        const paineisEjRhai = document.querySelectorAll('.painel-ai');
+
+        // Funções de navegação
+        function irParaEmpresa() {
+            telaInicial.style.display = 'none';
+            interfacePrincipal.style.display = 'flex';
+        }
+
+        function irParaAluno() {
+            alert('Área do Aluno em desenvolvimento!');
+        }
+
+        // Abrir/fechar menu lateral
+        botaoMenu.addEventListener('click', () => {
+            menuLateral.classList.add('aberto');
+        });
+
+        fecharMenu.addEventListener('click', () => {
+            menuLateral.classList.remove('aberto');
+        });
+
+        // Alternar submenu EJ RHAI
+        botaoEjRhai.addEventListener('click', () => {
+            submenuEjRhai.classList.toggle('aberto');
+        });
+
+        // Navegação entre seções
+        opcoesMenu.forEach(opcao => {
+            opcao.addEventListener('click', () => {
+                // Remover classe ativa de todas as opções
+                opcoesMenu.forEach(o => o.classList.remove('ativo'));
+                // Adicionar classe ativa à opção clicada
+                opcao.classList.add('ativo');
+                
+                // Obter a seção alvo
+                const secaoAlvo = opcao.getAttribute('data-secao');
+                
+                // Se for uma opção do EJ RHAI, mostrar a seção EJ RHAI
+                if (secaoAlvo && secaoAlvo.startsWith('rh-') || secaoAlvo === 'analista-funcionarios' || secaoAlvo === 'analista-dados') {
+                    // Ativar a seção EJ RHAI
+                    mostrarSecao('ej-rhai');
+                    
+                    // Ativar o painel correspondente
+                    let painelAlvo;
+                    switch(secaoAlvo) {
+                        case 'rh-contratacao':
+                            painelAlvo = 'painel-rh-contratacao';
+                            break;
+                        case 'analista-funcionarios':
+                            painelAlvo = 'painel-analista-funcionarios';
+                            break;
+                        case 'analista-dados':
+                            painelAlvo = 'painel-analista-dados';
+                            break;
+                    }
+                    
+                    // Mostrar o painel correspondente
+                    paineisEjRhai.forEach(painel => {
+                        painel.style.display = 'none';
+                    });
+                    document.getElementById(painelAlvo).style.display = 'block';
+                    
+                    // Atualizar botões ativos do EJ RHAI
+                    botoesEjRhai.forEach(botao => {
+                        botao.classList.remove('ativo');
+                        if (botao.getAttribute('data-painel') === secaoAlvo) {
+                            botao.classList.add('ativo');
+                        }
+                    });
+                } else if (secaoAlvo) {
+                    // Mostrar a seção normal
+                    mostrarSecao(secaoAlvo);
+                }
+                
+                // Fechar menu lateral em dispositivos móveis
+                if (window.innerWidth <= 768) {
+                    menuLateral.classList.remove('aberto');
+                }
+            });
+        });
+
+        // Alternar entre painéis do EJ RHAI
+        botoesEjRhai.forEach(botao => {
+            botao.addEventListener('click', () => {
+                const painelAlvo = botao.getAttribute('data-painel');
+                
+                // Remover classe ativa de todos os botões
+                botoesEjRhai.forEach(b => b.classList.remove('ativo'));
+                // Adicionar classe ativa ao botão clicado
+                botao.classList.add('ativo');
+                
+                // Mostrar o painel correspondente
+                paineisEjRhai.forEach(painel => {
+                    painel.style.display = 'none';
+                });
+                document.getElementById(`painel-${painelAlvo}`).style.display = 'block';
+            });
+        });
+
+        // Função para mostrar seção específica
+        function mostrarSecao(secaoId) {
+            secoes.forEach(secao => {
+                secao.classList.remove('ativa');
+            });
+            document.getElementById(secaoId).classList.add('ativa');
+        }
+
+        // Simular funcionalidade de busca
+        document.querySelectorAll('.botao-pesquisar').forEach(botao => {
+            botao.addEventListener('click', () => {
+                alert('Funcionalidade de busca ativada! Em uma implementação real, esta função pesquisaria no banco de dados.');
+            });
+        });
+
+        // Simular funcionalidade de contratação
+        document.querySelectorAll('.botao-contratar').forEach(botao => {
+            botao.addEventListener('click', () => {
+                alert('Candidato contratado com sucesso! Em uma implementação real, este processo enviaria notificações e atualizaria o status do candidato.');
+            });
+        });
+
+        // Simular funcionalidade de contato
+        document.querySelectorAll('.botao-contato').forEach(botao => {
+            botao.addEventListener('click', () => {
+                alert('Solicitação de contato enviada! Em uma implementação real, esta função enviaria um e-mail para o candidato.');
+            });
+        });
+    </script>
+</body>
+</html>
