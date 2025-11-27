@@ -1,0 +1,34 @@
+{
+Quero que você trabalhe como um:
+ desenvolvedor full stack ( especializado em html, java, java, java script e python ).
+ desingner gráfico
+ professor 
+ aluno
+}
+(programe em html, css, java, java script, python)
+Use a tabela de cor, tons de: preto, branco, cinza e se conseguir em caixar um verde escuro (em graficos se precisar)
+Faça apenas em duas pastas: INDEX.HTML e .PY
+Faça o site bonito, interativo, chamativo e profissional
+
+
+Dentro deste repositorio (EducaJovem) que te dei acssesso, quero que você crie um site completo para que eu possa testar todas as funcionalidades desse projeto ( google drive)
+faça os botões funcionais (iguais o anterior) e localizados em um menu lateral (hambuger {pode ser aberto ou fechado por meio de um botão pequeno [o de tres risquinhos] e flutuante passando um tom moderno })
+Estrutura:
+{
+  (primeiro uma tela com dois botões:, um para os alunos e adultos, outro para as empresas.
+  )
+#depois de clicado em um dos botões o usuario irá para o lugar escolhido
+ [EMPRESA
+  (
+   Começa na tela inícial onde terá as explicações sobre: as funcionalidade, objetivo e valores;
+#no canto da tela terá um botão flutuante passando um ar de modernidade e nele o usuario podera abrir ou fechar o menu lateral (hamburger)
+  BOTÕES do hamburger:
+BUSCA E CONTRATAÇÃO: Tela onde ele pode acessar todos os funcionários QUE FICARAM MISTOS NA TELA  ( GRATUITO) e ter uma barra de pesquisa (funcionalidade paga, porém vamos deixar gratis para que eu possa acessar por agora) onde ele pode expecificar: idade, area e expecializações, escola e cidade de quem ele deseja contratar. Ele também pode acessar o perfil da pessoa que dejesa contratar e lá entrar em contato com ela ou conosco ou então contratar ela por um botão "contratar"
+{ #os botões que estiver dentro desta chave deve estar dentro na parete superio da tela que abrira quando botão EJ RHAI clicado
+Botão: EJ RHAI: Aqui é um plano pago (vamos deixar gratis por agora) depois de clicar ele acessará um local onde praticamente todo ele é monitorado por agentes de AI e os trabalhos são feitos todos ou automaticos ou semiautomaticos. As funções são:
+ RH de contratação semialtomatico: O funcinário da empresa responsavel pelo RH diz para o agente de IA qual é o tipo de funcionario ele dejesa e o Agente busca no site as 5 melhores opções e traz para a empresa para o responsável do RH, que só tem o trabalho de clicar no botão "contratar" ou não.
+ Analista de funcionários: aqui o agente de AI analisa o desempenho de cada funcionario em cada aera no periodo de seis meses, eles traz os dados de desempenho das hards skills e soft skills de cada funcionario, ele analisa as soft skills com base em questionarios enviados diretamente para cada funcinario, as hards skills ele analisa com base em relatorio do responsavel pelo RH. E também apresenta o desenvolvimento e desempenho geral da empresa.
+ANALISTA DE DADOS e CALCULADORA: Esse Agente analisa E calcula qualquer dado que a empresa dejesar 
+)
+}
+
